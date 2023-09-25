@@ -14,7 +14,7 @@ def add_message(message):
     # bot.reply_to(message, bot_introduction_msg)
     echo_all(message)
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
     user_id = message.chat.id
     if check_user_json_exist(user_id):

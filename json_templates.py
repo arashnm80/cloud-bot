@@ -13,6 +13,16 @@ user_json_template = \
     }
 }
 
+user_json_template = \
+{
+    "settings": {
+        "active_f": 0
+    },
+    "db":{
+
+    }
+}
+
 # key for folder json is the folder name
 folder_json_template = \
 {

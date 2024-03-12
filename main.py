@@ -109,6 +109,9 @@ def rem_folder(message):
         return
     folder_name = words[1]
     json_data = read_user_json(message.chat.id)
+    if folder_name not in json_data["db"]:
+        bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> doesn't exist", parse_mode="html")    
+        return
     json_data["db"].pop(folder_name)
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> removed from folders list", parse_mode="html")
@@ -130,6 +133,28 @@ def set_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> set as active✅", parse_mode="html")
 
+# see all messages from folder
+@bot.message_handler(commands=['see_f'])
+def see_folder(message):
+    # remove beginning part before space
+    words = message.text.split(" ", 1)
+    if len(words) == 1:
+        bot.send_message(message.chat.id, f"specify folder name after command", parse_mode="html")
+        return
+    folder_name = words[1]
+    json_data = read_user_json(message.chat.id)
+    # check if folder exists
+    if folder_name not in json_data["db"]:
+        bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> doesn't exist", parse_mode="html")    
+        return
+    # check for empty folder
+    if not json_data["db"][folder_name]:
+        bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> is empty:", parse_mode="html")
+        return
+    # all fine
+    bot.send_message(message.chat.id, f"these are messages from folder <b>{folder_name}</b>:", parse_mode="html")
+    for message_name, message_id in json_data["db"][folder_name].items():
+        bot.copy_message(message.chat.id, message.chat.id, message_id)
 
 
 @bot.message_handler(commands=['start'])

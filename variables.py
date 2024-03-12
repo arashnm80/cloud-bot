@@ -25,4 +25,5 @@ folder commands:
 /add_f xxx -> add folder to folders list
 /rem_f xxx -> remove folder from folders list
 /set_f xxx -> set folder as active folder
+/see_f xxx -> see all messages from folder
 """

@@ -4,7 +4,7 @@ from json_functions import *
 
 bot = telebot.TeleBot(cloud_bot_api)
 
-
+# اضافه کردن پیام به پوشه فعال
 # add message to active folder
 @bot.message_handler(commands=['add_m'])
 def add_message(message):
@@ -30,6 +30,7 @@ def add_message(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"message added to folder <b>{active_f}</b>", parse_mode="html")
 
+# حذف پیام از پوشه فعال
 # remove message from active folder
 @bot.message_handler(commands=['rem_m'])
 def rem_message(message):
@@ -54,6 +55,7 @@ def rem_message(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"message removed from folder <b>{active_f}</b>", parse_mode="html")
 
+# مشاهده پیام از پوشه فعال
 # see message from active folder
 @bot.message_handler(commands=['see_m'])
 def see_message(message):
@@ -80,7 +82,7 @@ def see_message(message):
     bot.copy_message(message.chat.id, message.chat.id, message_id)
 
 
-
+# اضافه کردن یک پوشه جدید به دیتابیس
 # add folder
 @bot.message_handler(commands=['add_f'])
 def add_folder(message):
@@ -99,6 +101,7 @@ def add_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> added to folders list", parse_mode="html")
 
+# حذف پوشه از دیتابیس
 # remove folder
 @bot.message_handler(commands=['rem_f'])
 def rem_folder(message):
@@ -116,6 +119,7 @@ def rem_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> removed from folders list", parse_mode="html")
 
+# تنظیم کردن یک پوشه به عنوان پوشه فعال
 # set active folder to work with
 @bot.message_handler(commands=['set_f'])
 def set_folder(message):
@@ -133,6 +137,7 @@ def set_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> set as active✅", parse_mode="html")
 
+# مشاهده همه پیام های موجود در یک پوشه
 # see all messages from folder
 @bot.message_handler(commands=['see_f'])
 def see_folder(message):
@@ -157,6 +162,7 @@ def see_folder(message):
         bot.copy_message(message.chat.id, message.chat.id, message_id)
 
 
+# شروع ربات با ارستال دستور start توسط کاربر
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     user_id = message.chat.id
@@ -166,10 +172,12 @@ def send_welcome(message):
         create_user_json(user_id)
         bot.send_message(message.chat.id, "welcome, you are a new user. send /help for more information.", parse_mode="html")
 
+# مشاهده راهنمای ربات با ارسال دستور help توسط کاربر
 @bot.message_handler(commands=['help'])
 def help_command(message):
     bot.send_message(message.chat.id, help_message, parse_mode="html")
 
+# مشاهده تمام محتویات ذخیره شده
 @bot.message_handler(commands=['show'])
 def show_everything(message):
     output = ""
@@ -191,6 +199,7 @@ def show_everything(message):
         output += "</blockquote>"
     bot.send_message(message.chat.id, output, parse_mode="html")
 
+# حذف تمام فایل ها و پوشه های ذخیره شده
 # erase all messages and folders
 @bot.message_handler(commands=['erase'])
 def erase_everything(message):
@@ -199,11 +208,10 @@ def erase_everything(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"all messages and folders are erased", parse_mode="html")
 
-
-
+# نادیده گرفتن پیام های متفرقه کاربر
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
     pass
     
-
+# آغاز اجرای ربات
 bot.infinity_polling()

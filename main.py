@@ -4,7 +4,7 @@ from json_functions import *
 
 bot = telebot.TeleBot(cloud_bot_api)
 
-# اضافه کردن پیام به پوشه فعال
+# اضافه کردن پیام به پوشه فعلی
 # add message to active folder
 @bot.message_handler(commands=['add_m'])
 def add_message(message):
@@ -30,7 +30,7 @@ def add_message(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"message added to folder <b>{active_f}</b>", parse_mode="html")
 
-# حذف پیام از پوشه فعال
+# حذف پیام از پوشه فعلی
 # remove message from active folder
 @bot.message_handler(commands=['rem_m'])
 def rem_message(message):
@@ -55,7 +55,7 @@ def rem_message(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"message removed from folder <b>{active_f}</b>", parse_mode="html")
 
-# مشاهده پیام از پوشه فعال
+# مشاهده پیام درخواست شده از پوشه فعلی
 # see message from active folder
 @bot.message_handler(commands=['see_m'])
 def see_message(message):
@@ -101,7 +101,7 @@ def add_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> added to folders list", parse_mode="html")
 
-# حذف پوشه از دیتابیس
+# حذف یک پوشه از دیتابیس
 # remove folder
 @bot.message_handler(commands=['rem_f'])
 def rem_folder(message):
@@ -119,7 +119,8 @@ def rem_folder(message):
     write_user_json(message.chat.id, json_data)
     bot.send_message(message.chat.id, f"folder <b>{folder_name}</b> removed from folders list", parse_mode="html")
 
-# تنظیم کردن یک پوشه به عنوان پوشه فعال
+# تنظیم کردن یک پوشه به عنوان پوشه فعلی
+# به اینصورت کاربر می‌تواند انتخاب کند که عملیات های مربوط به حذف یا افزودن پیام ها روی چه پوشه ای اعمال شوند
 # set active folder to work with
 @bot.message_handler(commands=['set_f'])
 def set_folder(message):

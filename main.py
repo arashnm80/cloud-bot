@@ -1,7 +1,8 @@
-from needed_modules import *
+# وارد کردن کتاب‌خانه ها و ماژول های مورد استفاده به برنامه
+from needed_modules import * # کتاب‌خانه های رایج مانند pyTelegramBotAPI
+from json_functions import * # کتاب‌خانه های خواندن و نوشتن روی فایل json
 
-from json_functions import *
-
+# ساخت یک ربات با توکن گرفته شده از BotFather
 bot = telebot.TeleBot(cloud_bot_api)
 
 # اضافه کردن پیام به پوشه فعلی

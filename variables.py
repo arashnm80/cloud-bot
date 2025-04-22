@@ -1,8 +1,9 @@
 import os
+import re
 
 jsons_folder = "./users"
 
-cloud_bot_api = os.environ["TEST_AND_DEBUG_BOT_API"]
+cloud_bot_api = os.environ["CLOUD_BOT_API_TOKEN"]
 
 root_folder_addr = "/" # address of each folder starts with slash and ends with folder name
 
@@ -27,3 +28,6 @@ folder commands:
 /set_f xxx -> set folder as active folder
 /see_f xxx -> see all messages from folder
 """
+
+# regex patterns
+number_command_pattern = r'^/\d+$'
